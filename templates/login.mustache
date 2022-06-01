@@ -1,0 +1,38 @@
+<form id="login-form">
+  <img class="mb-4" src="images/logo.png" alt="" width="72" height="57" />
+  <h1 class="h3 mb-3 fw-normal">Please login</h1>
+
+  {{#error}}
+    <div class="alert alert-danger" role="alert">
+      {{ message }}
+    </div>
+  {{/error}}
+
+  <div class="form-floating">
+    <input
+      type="email"
+      id="login-username"
+      class="form-control"
+      placeholder="name@example.com"
+      value="{{username}}"
+    />
+    <label>Email</label>
+  </div>
+  <div class="form-floating mt-1">
+    <input
+      type="password"
+      class="form-control"
+      id="login-password"
+      placeholder="Password"
+      value="{{password}}"
+    />
+    <label>Password</label>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">
+    Login
+  </button>
+
+  <p class="mt-5 mb-3 text-muted">
+    No account? <a href="#/register">Register</a>
+  </p>
+</form>

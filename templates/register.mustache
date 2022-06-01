@@ -1,0 +1,70 @@
+<form id="register-form" class="form-floating">
+  <img class="mb-4" src="images/logo.png" alt="" width="72" height="57" />
+  <h1 class="h3 mb-3 fw-normal">Create an account</h1>
+
+    {{#error}}
+    <div class="alert alert-danger" role="alert">
+      {{message}}
+    </div>
+  {{/error}}
+
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="register-email" placeholder="" value="{{email}}">
+    <label for="register-email">Email address</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="register-password" placeholder="" value="{{password}}">
+    <label for="register-password">Password</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="register-firstname" placeholder="" value="{{firstname}}">
+    <label for="register-firstname">Firstname</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="register-lastname" placeholder="" value="{{lastname}}">
+    <label for="register-lastname">Lastname</label>
+  </div>
+
+  <p>Address</p>
+  <hr/>
+
+  <div class="form-floating mb-3">
+    <select onfocus="this.selectedIndex = -1;" name="region" id="register-regions-dropdown" class="form-select">
+    {{#regions}}
+      <option value="{{region_id}}">{{region_name}}</option>
+    {{/regions}}
+    </select>
+    <label for="register-regions-dropdown">Region</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <select onfocus="this.selectedIndex = -1;" name="province" id="register-provinces-dropdown" class="form-select"></select>
+    <label for="register-provinces-dropdown">Province</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <select onfocus="this.selectedIndex = -1;" name="city" id="register-municipalities-dropdown" class="form-select"></select>
+    <label for="register-municipalities-dropdown">City / Municipality</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <select onfocus="this.selectedIndex = -1;" name="barangay" id="register-barangays-dropdown" class="form-select"></select>
+    <label for="register-barangays-dropdown">Barangay</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="register-street-address" placeholder="1 Kalsada Street" value="">
+    <label for="register-lastname">Street Address</label>
+  </div>
+
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">
+    Register
+  </button>
+
+  <p class="mt-5 mb-3 text-muted">
+    Already registered? <a href="#/login">Login</a>
+  </p>
+</form>
