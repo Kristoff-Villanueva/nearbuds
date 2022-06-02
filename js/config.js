@@ -8,3 +8,5 @@ export const WALLETS_SERVICE_URL = 'https://api.concati.com/wallets'
 export const USERS_SERVICE_URL = 'https://api.concati.com/users'
 export const ADDRESS_SERVICE_URL = 'https://api.concati.com/address'
 export const MAPS_API_KEY = 'AIzaSyCnnrd__DZ8LrhbWs695Nv2iiND_SzCu24'
+
+export const TEST = 'SOMETEXT'
