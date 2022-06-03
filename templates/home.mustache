@@ -1,1 +1,29 @@
-<div id="map"></div>
+<form class="row">
+  <div class="col">
+    <label for="home-regions-dropdown">Region</label>
+    <select onfocus="this.selectedIndex = -1;" name="region" id="home-regions-dropdown" class="form-select">
+    {{#regions}}
+      <option value="{{region_id}}">{{region_name}}</option>
+    {{/regions}}
+    </select>
+  </div>
+  <div class="col">
+    <label for="home-provinces-dropdown">Province</label>
+    <select onfocus="this.selectedIndex = -1;" name="province" id="home-provinces-dropdown" class="form-select"></select>
+  </div>
+  <div class="col">
+    <label for="home-municipalities-dropdown">City / Municipality</label>
+    <select onfocus="this.selectedIndex = -1;" name="city" id="home-municipalities-dropdown" class="form-select"></select>
+  </div>
+
+  <div class="col">
+    <label for="home-barangays-dropdown">Barangay</label>
+    <select onfocus="this.selectedIndex = -1;" name="barangay" id="home-barangays-dropdown" class="form-select"></select>
+  </div>
+</form>
+
+<div class="row mt-4">
+  <div class="col">
+   <div id="map"></div>
+  </div>
+</div>

@@ -62,9 +62,8 @@ Path.map('#/login').to(async () => {
 Path.map('#/register').to(async () => {
   const path = 'templates/register.mustache'
 
-  let regionsList = []
-
   // Get list of Regions
+  let regionsList = []
   if (localStorage.getItem('regions') === null) {
     let authorizationToken = await generateAuthorizationToken()
     const { data: regions } = await axios.post(
