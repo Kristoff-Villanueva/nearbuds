@@ -28,34 +28,19 @@ Path.map('#/')
       },
     })
 
-    // Get list of Regions
-    let regionsList = []
-    if (localStorage.getItem('regions') === null) {
-      let authorizationToken = await generateAuthorizationToken()
-      const { data: regions } = await axios.post(
-        `${ADDRESS_SERVICE_URL}/regions`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${authorizationToken}`,
-          },
-        }
-      )
-      regionsList = regions.data
-      localStorage.setItem('regions', JSON.stringify(regions.data))
-    } else {
-      regionsList = JSON.parse(localStorage.getItem('regions'))
-    }
-
     const path = 'templates/home.mustache'
-    await renderTemplate(path, { users, regions: regionsList })
+    await renderTemplate(path, { users })
 
     // Add map marker for own location
     let map = L.map('map').setView(user.meta.coordinates.split(','), 15)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map)
+    })
+      .addTo(map)
+      .bindPopup(`<strong>You</strong> <br/> ${user.meta.location} <br/>`, {
+        closeButton: false,
+      })
 
     // Define icons
     const selfIcon = L.icon({
@@ -142,121 +127,6 @@ Path.map('#/')
           )
       }
     })
-
-    // Filter location
-    const regionsDropdown = document.getElementById('home-regions-dropdown')
-    const provincesDropdown = document.getElementById('home-provinces-dropdown')
-    const municipalitiesDropdown = document.getElementById(
-      'home-municipalities-dropdown'
-    )
-    const barangaysDropdown = document.getElementById('home-barangays-dropdown')
-
-    // If region was selected, get provinces
-    regionsDropdown.onchange = async () => {
-      //Reset dropdown options
-      provincesDropdown.options.length = 0
-      municipalitiesDropdown.options.length = 0
-      barangaysDropdown.options.length = 0
-
-      //Get provinces of selected region
-      let authorizationToken = await generateAuthorizationToken()
-      const { data: provinces } = await axios.post(
-        `${ADDRESS_SERVICE_URL}/provinces/`,
-        {
-          region_id: [regionsDropdown.value],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authorizationToken}`,
-          },
-        }
-      )
-
-      //Dynamically add options for province dropdown
-      provinces.data.forEach((item) => {
-        provincesDropdown.options[provincesDropdown.options.length] =
-          new Option(item.province_name, item.province_id)
-      })
-    }
-
-    // If province was selected, get municipalities
-    provincesDropdown.onchange = async () => {
-      //Reset dropdown option
-      municipalitiesDropdown.options.length = 0
-      barangaysDropdown.options.length = 0
-
-      //Get municipalities of selected province
-      let authorizationToken = await generateAuthorizationToken()
-      const { data: municipalities } = await axios.post(
-        `${ADDRESS_SERVICE_URL}/municipalities/`,
-        {
-          region_id: [regionsDropdown.value],
-          province_id: [provincesDropdown.value],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authorizationToken}`,
-          },
-        }
-      )
-
-      //Dynamically add options for municipalities dropdown
-      municipalities.data.forEach((item) => {
-        municipalitiesDropdown.options[municipalitiesDropdown.options.length] =
-          new Option(item.municipality_name, item.municipality_id)
-      })
-    }
-
-    // If municipality was selected, get barangays
-    municipalitiesDropdown.onchange = async () => {
-      //Reset dropdown option
-      barangaysDropdown.options.length = 0
-
-      //Get barangays of selected municipality
-      let authorizationToken = await generateAuthorizationToken()
-      const { data: barangays } = await axios.post(
-        `${ADDRESS_SERVICE_URL}/barangays/`,
-        {
-          region_id: [regionsDropdown.value],
-          province_id: [provincesDropdown.value],
-          municipality_id: [municipalitiesDropdown.value],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${authorizationToken}`,
-          },
-        }
-      )
-
-      //Dynamically add options for municipalities dropdown
-      barangays.data.forEach((item) => {
-        barangaysDropdown.options[barangaysDropdown.options.length] =
-          new Option(item.barangay_name, item.barangay_id)
-      })
-    }
-
-    barangaysDropdown.onchange = async () => {
-      const region = regionsDropdown.options[regionsDropdown.selectedIndex].text
-      const province =
-        provincesDropdown.options[provincesDropdown.selectedIndex].text
-      const municipality =
-        municipalitiesDropdown.options[municipalitiesDropdown.selectedIndex]
-          .text
-      const barangay =
-        barangaysDropdown.options[barangaysDropdown.selectedIndex].text
-
-      const { data: geocode } = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${barangay}+${municipality}+${province}+${region}+Philippines&key=${MAPS_API_KEY}`
-      )
-
-      map.setView(
-        [
-          geocode.results[0].geometry.location.lat,
-          geocode.results[0].geometry.location.lng,
-        ],
-        17
-      )
-    }
   })
 
 Path.map('#/profile').to(async () => {
