@@ -1,0 +1,10 @@
+export const API_KEY = '2NZ1fLxQI7GCkkV5hi'
+export const SECRET_KEY = 4U8NBtGhFpSQgh9AdNjyIci8gerfvaceg8XIS0egqXN1kdq1z203ESIwDiBkWIgKe9lx8llto7seo7xRki4fdr3C
+  ''
+export const ADMIN_API_KEY = 'a30idkCf2LSUt77VVD'
+export const ADMIN_SECRET_KEY = 4U8NBtGhFpSQgh9AdNjyIci8gerfvaceg8XIS0egqXN1kdq1z203ESIwDiBkWIgKe9lx8llto7seo7xRki4fdr3C
+  ''
+export const WALLETS_SERVICE_URL = 'https://api.concati.com/wallets'
+export const USERS_SERVICE_URL = 'https://api.concati.com/users'
+export const ADDRESS_SERVICE_URL = 'https://api.concati.com/address'
+export const MAPS_API_KEY = 'AIzaSyCnnrd__DZ8LrhbWs695Nv2iiND_SzCu24'
